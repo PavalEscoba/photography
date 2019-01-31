@@ -7,14 +7,18 @@ $(() => {
       authors: 'Фотографы',
       author_of_the_day: 'Фотограф дня',
       description_title: 'Описание проекта',
-      description_text: 'Описание проекта на русском языке',
+      description_text: 'Наш проект - это учебный прототип многостраничного портала посвящённого фотографии Беларуси. Здесь собраны разные авторы начиная с XIX века, заканчивая... Надеемся, что фотография в Беларуси не заканчится никогда. Пройдя по страничкам нашего портала вы можете посмотреть работы пионера фотографии в Беларуси Генрика Тышкевича, также классиков Хоментовской, Булгака, Наппельбаума, Дашкевича. Современная фотография представлена также очень сильным автором, который к сожалению очень рано ушёл от нас в возрасте 57 лет - Валерия Лобко. Пример копирайтерского "искусства", посвящённого сайту о фотографиим был представлен ниже, но было решено от него избавиться, потому что переводить его на 2 дополнительных языка не представлялось возможным.',
       works_section_title: 'Список работ фотографа',
       gallery_section_title: 'Галерея',
       video_section_title: 'Видео',
       map_section_title: 'Значимые места',
-      map_popup_text: 'родился здесь',
+      map_popup_text: 'Место рождения',
       seach_label: 'Поиск по имени, дате или месту рождения',
       seach_input: 'Введите запрос',
+      table_fullname: 'ФИО',
+      table_dateOfBirth: 'Дата рождения',
+      table_placeOfBirth: 'Место Рождения',
+      link_more: 'Подробнее',
     },
     by: {
       home: 'Галоўная',
@@ -22,14 +26,18 @@ $(() => {
       authors: 'Фатографы',
       author_of_the_day: 'Фатограф дня',
       description_title: 'Апісанне праэкта',
-      description_text: 'Апісанне праэкта на беларускай мове',
+      description_text: 'Наш праэкт - гэта вучобны прататып шматстаронкавага партала прысвечанага фатаграфии Беларусі. Тут мы сабралі розных аўтараў пачынаючы з XIX стагоддзя, заканчваючы ... Спадзяемся, што фатаграфія ў Беларусі не скончыцца ніколі. Калі вы пройдзеце па старонках нашага партала, вы зможаце паглядзець працы піянера фатаграфіі на Беларусі Генрыка Тышкевіча, таксама і класікаў Хамянтоўскай, Булгака, Напельбаума, Дашкевіча. Сучасная фатаграфія прадстаўлена таксама вельмі моцным аўтарам, які дажалю вельмі рана сышоў ад нас ва ўзросце 57 гадоў - Валерыя Лабко. Прыклад капірайтарскага майстэрства, прысвечанага сайту аб фатаграфіі быў прадстаўлены ніжэй, але было вырашана ад яго пазбавіцца, бо перакладаць яго на яшчэ 2 мовы не ўяўлялася магчымым.',
       works_section_title: 'Спіс работ фатографа',
       gallery_section_title: 'Галерэя',
       video_section_title: 'Відэа',
       map_section_title: 'Значныя месцы',
-      map_popup_text: 'нарадзіўся тут',
+      map_popup_text: 'Месца нараджэння',
       seach_label: 'Пошук па імені, даце альбо месцы нараджэння',
       seach_input: 'Увядзіце запыт',
+      table_fullname: 'Iмя',
+      table_dateOfBirth: 'Дата нараджэння',
+      table_placeOfBirth: 'Месца нараджэння',
+      link_more: 'Падрабязней',
     },
     eng: {
       home: 'Home',
@@ -37,14 +45,18 @@ $(() => {
       authors: 'Photographers',
       author_of_the_day: 'Photographer of the day',
       description_title: 'Project Description',
-      description_text: 'Project Description in english',
+      description_text: 'Our project is a study prototype of multipage portal which is dedicated to photography of Belarus.  Here we collected different authors starting from the XIX century, and finishing... We hope that photography in Belarus will never end. You can see works and masterpieces of Henryk Tyszkiewicz, classical works of Chamiantouskaja, Bulgak, Napelbaum, Daszkiewicz. Contemporary photography is presented here by such robust and keen photographer - Valery Labko (RIP). Also we had a "masterpiece" of copyrighting art, but we decided to get rid of it. Cause we didn\'t want to translate it into 2 additional languages.',
       works_section_title: 'List of works',
       gallery_section_title: 'Gallery',
       video_section_title: 'Video',
       map_section_title: 'Significant places',
-      map_popup_text: 'was born here',
+      map_popup_text: 'Place of birth',
       seach_label: 'Search by name, place or date of birth',
       seach_input: 'Enter your request',
+      table_fullname: 'Full name',
+      table_dateOfBirth: 'Birth date',
+      table_placeOfBirth: 'Birth place',
+      link_more: 'More info',
     },
   };
   const homeLink = $('#js-nav-home');
@@ -59,6 +71,11 @@ $(() => {
   const mapSecTitle = $('#js-map-title');
   const searchLabel = $('#js-search-label');
   const searchInput = $('#js-search-input');
+  const mapPopupText = $('#js-popup-text');
+  const tableFullnameText = $('#table-fullname');
+  const tableDateOfBirthText = $('#table-dateOfBirth');
+  const tablePlaceOfBirthText = $('#table-placeOfBirth');
+  const linkMoreText = $('#link-more');
 
   function setUiValues(value) {
     homeLink.text(uiData[value].home);
@@ -73,6 +90,11 @@ $(() => {
     mapSecTitle.text(uiData[value].map_section_title);
     searchLabel.text(uiData[value].seach_label);
     searchInput.attr('placeholder', uiData[value].seach_input);
+    mapPopupText.text(`${uiData[value].map_popup_text}`);
+    tableFullnameText.text(uiData[value].table_fullname);
+    tableDateOfBirthText.text(uiData[value].table_dateOfBirth);
+    tablePlaceOfBirthText.text(uiData[value].table_placeOfBirth);
+    linkMoreText.text(uiData[value].link_more);
   }
 
   function renderUI() {
@@ -84,6 +106,7 @@ $(() => {
     } else {
       const selectLang = $('#js-lang-select');
       language = selectLang.val();
+      localStorage.setItem('lang', language);
       setUiValues(language);
     }
   }
